@@ -1,0 +1,163 @@
+[p GLOBOPT AUTOSTATIC IEEE_FLT IEEE_DBL LFSROK EMI_WORD ]
+[d version 1.1 ]
+[d edition pro ]
+[d chip 18F4550 ]
+[d frameptr 4065 ]
+"74 /home/brito/Documentos/mlab/teste2.X/config.h
+[v _configura configura `(v  1 e 1 0 ]
+"4 /opt/microchip/xc8/v2.32/pic/sources/c99/common/fleq.c
+[v ___fleq __fleq `(b  1 e 0 0 ]
+"62 /opt/microchip/xc8/v2.32/pic/sources/c99/common/float.c
+[v ___ftpack __ftpack `(f  1 e 4 0 ]
+"86 /opt/microchip/xc8/v2.32/pic/sources/c99/common/ftadd.c
+[v ___ftadd __ftadd `(f  1 e 4 0 ]
+"54 /opt/microchip/xc8/v2.32/pic/sources/c99/common/ftdiv.c
+[v ___ftdiv __ftdiv `(f  1 e 4 0 ]
+"62 /opt/microchip/xc8/v2.32/pic/sources/c99/common/ftmul.c
+[v ___ftmul __ftmul `(f  1 e 4 0 ]
+"19 /opt/microchip/xc8/v2.32/pic/sources/c99/common/ftsub.c
+[v ___ftsub __ftsub `(f  1 e 4 0 ]
+"10 /opt/microchip/xc8/v2.32/pic/sources/c99/common/sprcadd.c
+[v ___fladd __fladd `(d  1 e 4 0 ]
+"245
+[v ___flsub __flsub `(d  1 e 4 0 ]
+"11 /opt/microchip/xc8/v2.32/pic/sources/c99/common/sprcdiv.c
+[v ___fldiv __fldiv `(d  1 e 4 0 ]
+"8 /opt/microchip/xc8/v2.32/pic/sources/c99/common/sprcmul.c
+[v ___flmul __flmul `(d  1 e 4 0 ]
+"15 /opt/microchip/xc8/v2.32/pic/sources/c99/common/Umul32.c
+[v ___lmul __lmul `(ul  1 e 4 0 ]
+"91 /opt/microchip/xc8/v2.32/pic/sources/c99/common/Umul64.c
+[v ___omul __omul `(uo  1 e 8 0 ]
+"38 /home/brito/Documentos/mlab/teste2.X/lcd.c
+[v _lcd_write lcd_write `(v  1 e 1 0 ]
+[v i2_lcd_write lcd_write `(v  1 e 1 0 ]
+"52
+[v _lcd_clear lcd_clear `(v  1 e 1 0 ]
+"72
+[v _lcd_putch lcd_putch `(v  1 e 1 0 ]
+"92
+[v _lcd_init lcd_init `(v  1 e 1 0 ]
+"16 /home/brito/Documentos/mlab/teste2.X/main.c
+[v _tmr tmr `IIH(v  1 e 1 0 ]
+"28
+[v _main main `(v  1 e 1 0 ]
+[s S55 . 1 `uc 1 RB0 1 0 :1:0 
+`uc 1 RB1 1 0 :1:1 
+`uc 1 RB2 1 0 :1:2 
+`uc 1 RB3 1 0 :1:3 
+`uc 1 RB4 1 0 :1:4 
+`uc 1 RB5 1 0 :1:5 
+`uc 1 RB6 1 0 :1:6 
+`uc 1 RB7 1 0 :1:7 
+]
+"2483 /home/brito/Documentos/microchip/mplabx/v5.45/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8/pic/include/proc/pic18f4550.h
+[s S64 . 1 `uc 1 INT0 1 0 :1:0 
+`uc 1 INT1 1 0 :1:1 
+`uc 1 INT2 1 0 :1:2 
+`uc 1 . 1 0 :2:3 
+`uc 1 PGM 1 0 :1:5 
+`uc 1 PGC 1 0 :1:6 
+`uc 1 PGD 1 0 :1:7 
+]
+[s S72 . 1 `uc 1 . 1 0 :3:0 
+`uc 1 CCP2_PA2 1 0 :1:3 
+]
+[u S75 . 1 `S55 1 . 1 0 `S64 1 . 1 0 `S72 1 . 1 0 ]
+[v _PORTBbits PORTBbits `VES75  1 e 1 @3969 ]
+"2705
+[v _PORTD PORTD `VEuc  1 e 1 @3971 ]
+"2826
+[v _PORTE PORTE `VEuc  1 e 1 @3972 ]
+"3427
+[v _TRISA TRISA `VEuc  1 e 1 @3986 ]
+"3625
+[v _TRISB TRISB `VEuc  1 e 1 @3987 ]
+"3847
+[v _TRISC TRISC `VEuc  1 e 1 @3988 ]
+"4001
+[v _TRISD TRISD `VEuc  1 e 1 @3989 ]
+"4223
+[v _TRISE TRISE `VEuc  1 e 1 @3990 ]
+"4936
+[v _RCSTA RCSTA `VEuc  1 e 1 @4011 ]
+"5146
+[v _TXSTA TXSTA `VEuc  1 e 1 @4012 ]
+"5402
+[v _TXREG TXREG `VEuc  1 e 1 @4013 ]
+"5414
+[v _RCREG RCREG `VEuc  1 e 1 @4014 ]
+"5426
+[v _SPBRG SPBRG `VEuc  1 e 1 @4015 ]
+"6062
+[v _BAUDCON BAUDCON `VEuc  1 e 1 @4024 ]
+"8582
+[v _INTCON INTCON `VEuc  1 e 1 @4082 ]
+"9888
+[v _IPEN IPEN `VEb  1 e 0 @32391 ]
+"10083
+[v _LE0 LE0 `VEb  1 e 0 @31848 ]
+"10086
+[v _LE1 LE1 `VEb  1 e 0 @31849 ]
+"10440
+[v _RCIE RCIE `VEb  1 e 0 @31981 ]
+"10443
+[v _RCIF RCIF `VEb  1 e 0 @31989 ]
+"10446
+[v _RCIP RCIP `VEb  1 e 0 @31997 ]
+"13 /home/brito/Documentos/mlab/teste2.X/main.c
+[v _envia envia `uc  1 e 1 0 ]
+"28
+[v _main main `(v  1 e 1 0 ]
+{
+"48
+} 0
+"92 /home/brito/Documentos/mlab/teste2.X/lcd.c
+[v _lcd_init lcd_init `(v  1 e 1 0 ]
+{
+"118
+} 0
+"52
+[v _lcd_clear lcd_clear `(v  1 e 1 0 ]
+{
+"57
+} 0
+"38
+[v _lcd_write lcd_write `(v  1 e 1 0 ]
+{
+[v lcd_write@c c `uc  1 a 1 wreg ]
+[v lcd_write@c c `uc  1 a 1 wreg ]
+"40
+[v lcd_write@c c `uc  1 a 1 5 ]
+"45
+} 0
+"74 /home/brito/Documentos/mlab/teste2.X/config.h
+[v _configura configura `(v  1 e 1 0 ]
+{
+"92
+} 0
+"16 /home/brito/Documentos/mlab/teste2.X/main.c
+[v _tmr tmr `IIH(v  1 e 1 0 ]
+{
+"19
+[v tmr@serial serial `uc  1 a 1 3 ]
+"26
+} 0
+"72 /home/brito/Documentos/mlab/teste2.X/lcd.c
+[v _lcd_putch lcd_putch `(v  1 e 1 0 ]
+{
+[v lcd_putch@c c `uc  1 a 1 wreg ]
+[v lcd_putch@c c `uc  1 a 1 wreg ]
+"74
+[v lcd_putch@c c `uc  1 a 1 2 ]
+"76
+} 0
+"38
+[v i2_lcd_write lcd_write `(v  1 e 1 0 ]
+{
+[v i2lcd_write@c c `uc  1 a 1 wreg ]
+[v i2lcd_write@c c `uc  1 a 1 wreg ]
+"40
+[v i2lcd_write@c c `uc  1 a 1 1 ]
+"45
+} 0
