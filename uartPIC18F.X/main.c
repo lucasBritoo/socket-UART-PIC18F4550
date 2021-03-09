@@ -38,7 +38,7 @@ void main(void) {
     //lcd_puts("OIEE");
     
     while(1){
-        //lcd_puts("OIEE");
+      //lcd_puts("OIEE");
         led =1;
         __delay_ms(500);
         led = 0;
