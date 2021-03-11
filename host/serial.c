@@ -219,6 +219,7 @@ int main() {
 			printf("-------------------------------\n");
 			printf("1 - Escrever na serial\n");
 			printf("2 - Sair\n");
+			printf("-------------------------------\n");
 			scanf("%d", &opc);
 
 			switch(opc){
