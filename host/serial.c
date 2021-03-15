@@ -13,6 +13,9 @@
 #include <netinet/in.h>
 
 #define PORTA 2000
+#define MAX 100
+int flag = 0;
+int client;
 
 //struct para parâmetro da threadSocket
 typedef struct {
@@ -61,6 +64,7 @@ int configuraSocket(struct sockaddr_in *local, int sockfd){
 	}
 
 }
+
 
 //inicia a porta serial
 int inicializaSerial(){
@@ -124,35 +128,50 @@ void * threadLeitura(void *arg){
 	while(1){
 		int num_bytes = read(*serial_port, &read_buf, sizeof(read_buf));
 
-		if(num_bytes < 0) {
-			printf("Error reading: %s\n", strerror(errno));
-		}
-		else {
-			printf("Read %i bytes. Received message: %s\n", num_bytes, read_buf);
+		if(num_bytes > 0) {
+			printf("\nLido %i bytes. Mensagem recebida: %s\n", num_bytes, read_buf);
 			strcpy(read_buf, "");
 			memset(&read_buf, '\0', sizeof(read_buf));
-
 		}
 	}
 }
 
-//thread para esperar Client
-void * threadClient(void *arg){
-	socketHost *host = (socketHost *) arg;
+void * threadLeituraClient(void *arg) {
 
-	int client = accept (host->stt_sockfd, (struct sockaddr *)&(host)->stt_remoto, &(host)->stt_len);
+	while(1){
+		if(client > 0){
+			char leitura[MAX];
+
+			int rec = recv(client, leitura, MAX, 0);
+
+			if(rec > 0){
+				leitura[rec] = '\0';
+				printf("Cliente: %s\n", leitura);
+			}
+			else if(flag == 1){
+				printf("Cliente desconectado");
+				flag = 0;
+				pthread_exit(NULL);
+			}
+		}
+	}
+}
+
+void aceitaClient(socketHost *host){
+
+	client = accept (host->stt_sockfd, (struct sockaddr *)&(host)->stt_remoto, &(host)->stt_len);
 
 	if(client == -1) {
-		perror("accept ");
+		printf("Error %i from accept: %s\n", errno, strerror(errno));
 		pthread_exit(NULL);
 
 	}
 	else {
-		printf("Client Conectado");
-		pthread_exit(NULL);
+		printf("\nClient Conectado\n");
+		flag = 1;
 	}
-
 }
+
 
 //escrever dados na serial
 void escreverSerial(int serial_port){
@@ -169,6 +188,7 @@ void finalizaPrograma(pthread_t *thread1, pthread_t *thread2, int serial_port, i
 	close(sockfd);
 }
 
+
 int main() {
 	pthread_t thread1, thread2;
 
@@ -177,15 +197,14 @@ int main() {
 	struct termios tty;
 	socketHost host;
 
-	//socklen_t len = 
 
-	int create1, create2, opc = 1;
+	int create1, create2, verifica =0,opc = 1;
 
 	int serial_port = inicializaSerial();					//abre porta serial
 	int sockfd = iniciaSocket(&remoto);						//inicia socket
 
 	if(serial_port < 0 || sockfd < 0){
-		printf("Conexão rejeitada, verifique erro");
+		printf("Conexão rejeitada, verifique erro\n");
 		finalizaPrograma(&thread1, &thread2, serial_port, sockfd);
 		return 0;
 	}
@@ -193,11 +212,13 @@ int main() {
 	int connect_serial = configuraSerial(serial_port, &tty);		//configura termios
 	int connect_socket = configuraSocket(&local, sockfd);		//configura socket
 
+
 	if(connect_serial < 0 || connect_socket < 0){
-		printf("Configuração errada, verifique erro");
+		printf("Configuração errada, verifique erro\n");
 		finalizaPrograma(&thread1, &thread2, serial_port, sockfd);
 		return 0;
 	}
+
 
 	//atribui os valores do socket para a struct socketHost
 	host.stt_remoto = remoto;
@@ -207,10 +228,10 @@ int main() {
 	
 	//cria as threads
 	create1 = pthread_create(&thread1, NULL, threadLeitura, (void *) (&serial_port));
-	create2 = pthread_create(&thread2, NULL, threadClient, (void *) &host);
-
-	if(create1 < 0 || create2 < 0){
-		printf("Threads erradas, verifique erro");
+	
+							
+	if(create1 < 0){
+		printf("Thread leitura serial com problema, verifique erro\n");
 		finalizaPrograma(&thread1, &thread2, serial_port, sockfd);
 		return 0;
 	}
@@ -218,15 +239,30 @@ int main() {
 		while(opc != 0){
 			printf("-------------------------------\n");
 			printf("1 - Escrever na serial\n");
-			printf("2 - Sair\n");
+			printf("2 - Aguardar conexão com cliente\n");
+			printf("3 - Sair\n");
 			printf("-------------------------------\n");
+			printf("Digite a opção: ");
 			scanf("%d", &opc);
+			printf("\n");
 
 			switch(opc){
 				case 1:
 					escreverSerial(serial_port);
 					break;
 				case 2:
+					if(flag){
+						printf("Cliente já está conectado\n");
+					}else{
+						printf("Aguardando conexão com client\n");
+						
+						aceitaClient(&host);
+						create2 = pthread_create(&thread2, NULL, threadLeituraClient, (void *)&sockfd);
+					}
+
+					break;
+					
+				case 3:
 					printf("Conexão encerrada, fechando o programa...\n");
 					finalizaPrograma(&thread1, &thread2, serial_port, sockfd);
 					return 0;

@@ -59,6 +59,18 @@ void * threadEscreveHost(void *arg){
 	mensagem[strlen(mensagem) -1] = '\0';
 
 	send(*sockfd, mensagem, strlen(mensagem), 0);
+	pthread_exit(NULL);
+}
+
+void escreveHost(int sockfd){
+	char mensagem[MAX];
+	printf("\nClient: ");
+	scanf("%s", mensagem);
+	//fgets(mensagem, MAX, stdin);
+	//strcpy(mensagem, "OLA ");
+	//mensagem[strlen(mensagem) -1] = '\0';
+
+	send(sockfd, mensagem, strlen(mensagem), 0);
 }
 
 void * threadLeituraHost(void *arg){
@@ -102,7 +114,7 @@ int main(){
 		return 0;
 	}
 
-	create1 = pthread_create(&thread1, NULL, threadEscreveHost, (void *) (&sockfd));
+	//create1 = pthread_create(&thread1, NULL, threadEscreveHost, (void *) (&sockfd));
 	create2 = pthread_create(&thread2, NULL, threadLeituraHost, (void *) (&sockfd));
 
 	if(create1 < 0 || create2 < 0){
@@ -113,11 +125,19 @@ int main(){
 
 	while(opc != 2){
 		printf("-------------------------------\n");
+		printf("1 - Enviar dados\n");
 		printf("2 - Sair\n");
 		printf("-------------------------------\n");
+		printf("Digite a opção: ");
 		scanf("%d", &opc);
+		printf("\n");
 
 		switch(opc){
+			case 1:
+				escreveHost(sockfd);
+				//create1 = pthread_create(&thread1, NULL, threadEscreveHost, (void *) (&sockfd));
+				break;
+
 			case 2:
 				printf("Conexão encerrada, fechando o programa...\n");
 				finalizaPrograma(&thread1, &thread2, sockfd);
